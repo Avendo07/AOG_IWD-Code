@@ -1,0 +1,19 @@
+'use strict';
+
+// Import the Dialogflow module from the Actions on Google client library.
+const {dialogflow} = require('actions-on-google');
+
+// Import the firebase-functions package for deployment.
+const functions = require('firebase-functions');
+
+// Instantiate the Dialogflow client.
+const app = dialogflow({debug: true});
+
+// Handle the Dialogflow intent named 'cake_order'.
+app.intent('cake_order', (conv, {cake_order}) => {
+    // Respond with the user's lucky number and end the conversation.
+    conv.ask("Your order has been saved. You'll get a yummy cake at your doorstep soon! Anything else we can get you?");
+});
+
+// Set the DialogflowApp object to handle the HTTPS POST request.
+exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);
